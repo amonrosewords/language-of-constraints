@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Language of Constraints: specific constraint prompting for AI music, images and writing</title>
+<meta name="description" content="Specific constraint prompting: a free manual on directing generative AI without giving up authorship. Thirteen principles, tested on Suno songs and on picture-book images. By A. Monrose, with Claude.">
+<meta name="author" content="A. Monrose, with Claude">
+<meta name="keywords" content="specific constraint prompting, constraint prompting, Suno prompts, Suno v6, AI music prompting, negative prompting, image prompting, prompt engineering">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Language of Constraints">
+<meta property="og:description" content="Specific constraint prompting: a free manual on directing generative AI without giving up authorship. Thirteen principles, tested on Suno songs and on picture-book images. By A. Monrose, with Claude.">
+<meta property="og:image" content="monrose.jpg">
+<meta name="twitter:card" content="summary">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"The Language of Constraints","alternativeHeadline":"Specific constraint prompting: how to direct generative AI",
+"author":{"@type":"Person","name":"A. Monrose","url":"https://youtube.com/@amonrosewords"},"contributor":{"@type":"Thing","name":"Claude (Anthropic)"},
+"datePublished":"2026-11-21","dateModified":"2026-11-21","inLanguage":"en","keywords":"specific constraint prompting, Suno, AI music, image prompting",
+"description":"Specific constraint prompting: a free manual on directing generative AI without giving up authorship. Thirteen principles, tested on Suno songs and on picture-book images. By A. Monrose, with Claude."}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Spectral:ital,wght@0,300;0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF9F5;
+  --paper-2:#F1EFE8;
+  --ink:#191C19;
+  --ink-soft:#63675F;
+  --faint:#9A9E96;
+  --rule:#D9D5C9;
+  --accent:#D0643A;
+  --mono-bg:#EFECE3;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#15171A;--paper-2:#1B1E21;--ink:#E6E3DB;--ink-soft:#9AA09A;
+    --faint:#6E736D;--rule:#31363A;--accent:#D0643A;--mono-bg:#1F2225;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#15171A;--paper-2:#1B1E21;--ink:#E6E3DB;--ink-soft:#9AA09A;
+  --faint:#6E736D;--rule:#31363A;--accent:#D0643A;--mono-bg:#1F2225;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 1.5rem);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Spectral,Georgia,serif;font-size:1.0625rem;line-height:1.72;
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.5rem 6rem}
+
+/* mark */
+img.mark{display:block;width:72px;height:72px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 2px var(--paper),0 0 0 4px var(--accent);margin:0 0 2rem}
+
+header.mast{padding:4.5rem 0 0}
+h1{font-family:Archivo,system-ui,sans-serif;font-weight:700;letter-spacing:-.03em;
+  line-height:1.02;font-size:clamp(2.4rem,8vw,4.2rem);margin:0 0 1.1rem;text-wrap:balance}
+.sub{font-family:Archivo,system-ui,sans-serif;font-weight:500;color:var(--ink-soft);
+  font-size:clamp(1.05rem,3vw,1.3rem);line-height:1.35;margin:0 0 1.5rem;max-width:30rem}
+.byline{font-size:.95rem;color:var(--faint);margin:0}
+
+/* thesis */
+.thesis{margin:4rem 0 3.5rem;padding:2.75rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.thesis p{font-family:Archivo,system-ui,sans-serif;font-weight:500;
+  font-size:clamp(1.3rem,4vw,1.85rem);line-height:1.28;letter-spacing:-.02em;margin:0 0 .6rem;max-width:34rem}
+.thesis p:last-child{margin-bottom:0;color:var(--accent)}
+
+/* toc */
+nav.toc{margin:0 0 4rem}
+nav.toc h2{font-family:Archivo,sans-serif;font-size:.875rem;font-weight:600;
+  color:var(--faint);margin:0 0 1rem;letter-spacing:.04em;text-transform:uppercase}
+nav.toc ol{list-style:none;margin:0;padding:0;columns:2;column-gap:2.5rem}
+nav.toc li{break-inside:avoid;margin:0 0 .35rem;font-size:.9375rem;line-height:1.5}
+nav.toc a{color:var(--ink);text-decoration:none;border-bottom:1px solid transparent}
+nav.toc a:hover{border-bottom-color:var(--accent)}
+@media(max-width:34rem){nav.toc ol{columns:1}}
+
+section{margin:0 0 3.75rem}
+h2.part{font-family:Archivo,sans-serif;font-weight:600;font-size:.8125rem;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--accent);
+  margin:4.5rem 0 1.75rem;padding-top:1.75rem;border-top:2px solid var(--ink)}
+h3.p{font-family:Archivo,sans-serif;font-weight:700;letter-spacing:-.02em;
+  line-height:1.15;font-size:1.55rem;margin:0 0 .35rem}
+.pnum{font-family:'JetBrains Mono',monospace;font-size:.8125rem;font-weight:500;
+  color:var(--accent);display:block;margin:0 0 .5rem}
+.rule-line{font-family:Archivo,sans-serif;font-weight:500;font-size:1.075rem;
+  color:var(--ink-soft);margin:0 0 1.35rem;line-height:1.45;max-width:34rem}
+h4{font-family:Archivo,sans-serif;font-weight:600;font-size:1rem;margin:1.9rem 0 .5rem}
+p{margin:0 0 1.05rem;max-width:36rem}
+strong{font-weight:600}
+
+ul.plain{list-style:none;margin:0 0 1.4rem;padding:0;max-width:36rem}
+ul.plain li{padding:.3rem 0 .3rem 1.1rem;position:relative;line-height:1.55}
+ul.plain li::before{content:"";position:absolute;left:0;top:1.02em;width:.42rem;height:1px;background:var(--rule)}
+
+/* the recurring device */
+.ab{margin:1.4rem 0 1.6rem;max-width:36rem;border-left:2px solid var(--rule);padding-left:1.15rem}
+.ab .a,.ab .b{margin:0 0 .85rem}
+.ab .b{margin-bottom:0}
+.ab .t{font-family:Archivo,sans-serif;font-size:.6875rem;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:.25rem}
+.ab .a .t{color:var(--faint)}
+.ab .b .t{color:var(--accent)}
+.ab .a p{color:var(--faint);margin:0;font-size:1rem;line-height:1.5}
+.ab .b p{margin:0;font-size:1rem;line-height:1.5}
+
+.mono{font-family:'JetBrains Mono',monospace;font-size:.82rem;line-height:1.6;
+  background:var(--mono-bg);padding:1.05rem 1.15rem;margin:0 0 1.4rem;
+  white-space:pre-wrap;overflow-x:auto;border-left:2px solid var(--accent)}
+
+.pull{font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(1.15rem,3.4vw,1.5rem);
+  line-height:1.3;letter-spacing:-.015em;margin:2.25rem 0;padding:0 0 0 1.25rem;
+  border-left:3px solid var(--accent);max-width:34rem}
+
+.tablewrap{overflow-x:auto;margin:0 0 1.6rem}
+table{border-collapse:collapse;width:100%;font-size:.9375rem;min-width:28rem}
+th,td{text-align:left;padding:.5rem .9rem .5rem 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-family:Archivo,sans-serif;font-size:.78rem;font-weight:600;color:var(--faint);
+  text-transform:uppercase;letter-spacing:.05em}
+
+.closing{margin:5rem 0 0;padding:3rem 0 0;border-top:2px solid var(--ink)}
+.closing .lines{font-family:Archivo,sans-serif;font-weight:700;
+  font-size:clamp(1.35rem,4.2vw,1.9rem);line-height:1.3;letter-spacing:-.02em;margin:0 0 2rem}
+.closing .lines span{display:block}
+.closing .lines span:last-child{color:var(--accent)}
+footer{margin:3.5rem 0 0;padding:1.6rem 0 0;border-top:1px solid var(--rule);
+  font-size:.875rem;color:var(--faint)}
+footer p{max-width:34rem;margin:0 0 .5rem}
+a{color:var(--ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+h2.sec{
+  font-family:Archivo,system-ui,sans-serif;
+  font-weight:700;letter-spacing:-.018em;line-height:1.16;
+  font-size:1.6rem;margin:0 0 1.25rem;
+  display:flex;gap:.85rem;align-items:baseline;
+}
+h2.sec .num{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.875rem;font-weight:500;color:var(--accent);
+  flex:none;padding-top:.15rem;
+}
+ul.verbs{
+  list-style:none;margin:0 0 1.75rem;padding:0;
+  display:flex;flex-wrap:wrap;gap:.4rem .5rem;max-width:36rem;
+}
+ul.verbs li{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.8125rem;padding:.24rem .55rem;
+  background:var(--mono-bg);border-radius:2px;
+}
+.banned{margin:1.5rem 0 1.75rem;max-width:36rem}
+.banned ul{list-style:none;margin:0;padding:0}
+.banned li{
+  font-family:Archivo,system-ui,sans-serif;
+  font-size:1.0625rem;font-weight:500;
+  padding:.3rem 0;
+  text-decoration:line-through;
+  text-decoration-thickness:.09em;
+  text-decoration-color:var(--accent);
+  color:var(--ink-soft);
+}
+.prompt{
+  font-family:'JetBrains Mono',ui-monospace,monospace;
+  font-size:.84rem;line-height:1.65;
+  background:var(--mono-bg);
+  padding:1.15rem 1.25rem;
+  margin:0 0 1.5rem;
+  white-space:pre-wrap;
+  overflow-x:auto;
+  border-left:2px solid var(--accent);
+}
+.lyric{
+  font-size:1rem;line-height:1.5;
+  margin:0 0 1.5rem;padding:0 0 0 1.25rem;
+  border-left:1px solid var(--rule);
+  color:var(--ink);white-space:pre-wrap;
+}
+.label{
+  font-family:Archivo,system-ui,sans-serif;
+  font-size:.8125rem;font-weight:600;color:var(--accent);
+  margin:0 0 .5rem;
+}
+.compare{margin:0 0 1.75rem;max-width:36rem}
+.compare .weak,.compare .strong-ex{
+  padding:.9rem 0;border-top:1px solid var(--rule);
+}
+.compare .strong-ex{border-bottom:1px solid var(--rule)}
+.compare .tag{
+  font-family:Archivo,system-ui,sans-serif;font-size:.75rem;
+  font-weight:600;display:block;margin-bottom:.3rem;
+}
+.compare .weak .tag{color:var(--ink-soft)}
+.compare .strong-ex .tag{color:var(--accent)}
+.compare p{margin:0;font-size:1rem;line-height:1.55}
+.compare .weak p{color:var(--ink-soft)}
+.case{
+  margin:5rem 0 4rem;padding:3rem 0 0;border-top:2px solid var(--ink);
+}
+.case h2{
+  font-family:Archivo,system-ui,sans-serif;font-weight:700;
+  font-size:clamp(1.7rem,5vw,2.3rem);letter-spacing:-.022em;
+  margin:0 0 .4rem;line-height:1.1;
+}
+.case .sub{color:var(--ink-soft);font-size:1rem;margin:0 0 2rem}
+.status{font-family:Archivo,system-ui,sans-serif;font-size:.9375rem;line-height:1.6;color:var(--ink-soft);border-left:3px solid var(--accent);padding:.2rem 0 .2rem 1rem;margin:2rem 0}
+.status strong{color:var(--ink);font-weight:600}
+h3{font-family:Archivo,system-ui,sans-serif;font-weight:600;font-size:1.0625rem;letter-spacing:-.008em;margin:2.25rem 0 .6rem}
+.kicker{font-family:Archivo,system-ui,sans-serif;font-size:.8125rem;font-weight:600;color:var(--accent);margin:0 0 1.25rem}
+.partnote{font-size:1rem;color:var(--ink-soft);max-width:36rem}
+.applies{font-family:Archivo,sans-serif;font-size:.8125rem;font-weight:600;color:var(--faint);margin:-.75rem 0 1rem}
+nav.toc h3{font-family:Archivo,sans-serif;font-size:.75rem;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin:1.25rem 0 .5rem}
+nav.toc h3:first-of-type{margin-top:0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="mast">
+  <img class="mark" src="monrose.jpg" width="72" height="72" alt="A. Monrose">
+  <p class="kicker">Specific constraint prompting: how to direct generative AI</p>
+  <h1>The Language of Constraints</h1>
+  <p class="sub">A manual for directing generative systems without surrendering authorship: the grammar, music in practice, and images.</p>
+  <p class="byline">A. Monrose, with Claude · November 2026</p>
+</header>
+
+<div class="thesis">
+  <p>A generative system given freedom will give you the average.</p>
+  <p>Not because it lacks capability. Because the average is what freedom selects for.</p>
+  <p>Everything that follows is a grammar for taking freedom away.</p>
+</div>
+
+<p class="status">I call this <strong>specific constraint prompting</strong>. The method videos show it one song at a time: a beginner prompt beside a precise one, the same lyric, the same model. Thirteen episodes are finished; the series runs on YouTube every Thursday from November 19, 2026.</p>
+
+<section>
+  <p>This is a manual about directing machines that generate — music, prose, images, code, analysis. It contains no prompts to copy. Copied prompts stop working when the tool updates, and they teach nothing. What it contains is a grammar: a set of instruction types that behave predictably across systems, and a method for finding out which ones a particular system respects.</p>
+  <p>It grew out of a specific project — twenty-four songs, written as lyrics across twenty-five years and given music in one — and the failures were logged as carefully as the successes. Where a principle came from a failure, that's said.</p>
+<p>I call the practice <strong>specific constraint prompting</strong>: direct the machine by naming what must be true and what must never happen, rather than describing a mood.</p>
+  <p>The claim is not that this makes a machine creative. It is that a person with a clear vision, a large amount of specific knowledge, and the discipline to remove options can direct a fluent, tasteless, tireless instrument toward something neither of them would have produced alone. <strong>The machine supplies fluency. You supply the reason anything should exist at all.</strong></p>
+</section>
+
+<section>
+  <p><strong>How this manual is laid out.</strong> Part One is the grammar: thirteen principles that hold for any generative tool. Part Two is the grammar at work on songs, with the prompt template, two case studies, and what a new model version changed. Part Three tests the grammar on pictures. Music readers can start with Part Two and follow its pointers back; the principles are stated once, in Part One.</p>
+</section>
+
+<nav class="toc" aria-label="Contents">
+  <h2>Contents</h2>
+  <h3>Part One · The grammar</h3>
+  <ol>
+    <li><a href="#why">Why freedom yields the average</a></li>
+    <li><a href="#p1">1 · Architecture before adjectives</a></li>
+    <li><a href="#p2">2 · Contradiction</a></li>
+    <li><a href="#p3">3 · Narrow reference</a></li>
+    <li><a href="#p4">4 · Negative space</a></li>
+    <li><a href="#p5">5 · Relational instruction</a></li>
+    <li><a href="#p6">6 · Format is instruction</a></li>
+    <li><a href="#p7">7 · Semantic gravity</a></li>
+    <li><a href="#p8">8 · Elements persist</a></li>
+    <li><a href="#p9">9 · One variable at a time</a></li>
+    <li><a href="#p10">10 · Read divergence before correcting it</a></li>
+    <li><a href="#p11">11 · Curate the outlier</a></li>
+    <li><a href="#p12">12 · Borrow a mechanism</a></li>
+    <li><a href="#p13">13 · Describe the observable</a></li>
+    <li><a href="#dose">How many constraints</a></li>
+    <li><a href="#update">When the model updates</a></li>
+    <li><a href="#altitudes">Two altitudes</a></li>
+    <li><a href="#domains">Prose, code, analysis</a></li>
+  </ol>
+  <h3>Part Two · Music in practice</h3>
+  <ol>
+    <li><a href="#s1">2.1 · The limits of verb choice</a></li>
+    <li><a href="#s2">2.2 · The grammar in a song</a></li>
+    <li><a href="#s6">2.3 · Lyrics as a control surface</a></li>
+    <li><a href="#s9">2.4 · Generate in sections</a></li>
+    <li><a href="#s10">2.5 · What prompting cannot fix</a></li>
+    <li><a href="#s11">2.6 · Expand the reference pool</a></li>
+    <li><a href="#s13">2.7 · Test whether it is fresh</a></li>
+    <li><a href="#template">The prompt template</a></li>
+    <li><a href="#method">The working method</a></li>
+    <li><a href="#case">Case study: “I love you, baby”</a></li>
+    <li><a href="#case2">Case study: “Desperate Skin”</a></li>
+    <li><a href="#v6">What v6 changed</a></li>
+  </ol>
+  <h3>Part Three · Images</h3>
+  <ol>
+    <li><a href="#i1">3.1 · Freedom, detail, and decisions</a></li>
+    <li><a href="#i2">3.2 · Constrain the style</a></li>
+    <li><a href="#i3">3.3 · Where things are, and how big</a></li>
+    <li><a href="#i4">3.4 · What constraint can’t hold</a></li>
+  </ol>
+  <h3>Finally</h3>
+  <ol><li><a href="#judgement">The part that doesn’t transfer</a></li></ol>
+</nav>
+
+<h2 class="part" id="part1">Part One · The grammar</h2>
+<section id="why">
+  <h3 class="p">Why freedom yields the average</h3>
+  <p>These systems work by predicting what is likely. Given a broad instruction, an enormous number of outputs satisfy it, and the system selects from the densest region of that space — which is, by definition, the most typical answer. Vagueness is not an invitation to invent. It is an instruction to interpolate.</p>
+  <p>This is why asking for originality fails so reliably. <em>Unique</em>, <em>original</em>, <em>unconventional</em> and <em>surprising</em> are not instructions. They are compliments. They describe how you would like to feel about the result, and they tell the system nothing about what to do.</p>
+
+  <div class="ab">
+    <div class="a"><span class="t">Asks for originality</span><p>Make it unique and unconventional.</p></div>
+    <div class="b"><span class="t">Removes the conventional</span><p>The chorus appears once, at the end. No instrument enters after the first minute. End before the phrase resolves.</p></div>
+  </div>
+
+  <p>The second contains no word meaning "original." It is original because the ordinary answers have been made unavailable.</p>
+
+  <p class="pull">Creativity is not what you add to a prompt. It is what remains after you have closed the obvious routes.</p>
+
+  <h4>The test that shows it</h4>
+  <p>This is worth running yourself, because the result is more convincing than any argument.</p>
+  <p>Take a short piece of fiction and ask a language model to write what happens next — six times, changing only one word each time. <em>Chronicle it. Weave it. Draft it. Craft it. Write it. Continue it.</em></p>
+  <p>The six outputs differ visibly. One is dry and formal, another loose, a third reaches for lyricism. Verb choice plainly affects the surface, and anyone who says word choice doesn't matter is wrong.</p>
+  <p>Then read beneath the surface. In the run this manual is drawn from, all six opened the same way, moved through the same middle, and arrived at the same ending — the ending the material was already pulling toward. Scored blind on nine dimensions, they ranged from competent to clichéd, and the weakest delivered every beat the story's gravity demanded: the trembling voice, the tears, the stated forgiveness.</p>
+  <p class="pull">Six verbs. One skeleton.</p>
+  <p>A seventh version used the plainest verb of all — <em>write</em> — and added five structural instructions: begin on the second day rather than the first; never allow the two characters to be alone in a room; do not resolve the central contradiction; ban the confession scene; end on a physical object rather than a stated feeling.</p>
+  <p>It shared none of the others' architecture. It began where they never would have begun, kept the estranged pair on opposite sides of a doorway for the entire piece, held two irreconcilable truths without dissolving either, and ended on a screen door swinging inward, pausing, and settling back against its frame — doing by image what the six had done by statement.</p>
+  <p>The six differed in coat. The seventh had different bones.</p>
+  <p class="pull">A better verb changes what a work wears. A constraint changes its skeleton — and cliché lives in the skeleton.</p>
+</section>
+<section id="p1">
+  <span class="pnum">01</span>
+  <h3 class="p">Architecture before adjectives</h3>
+  <p class="rule-line">Specify the shape of the thing, not the feeling it should produce.</p>
+  <p>Cliché enters through form far more than through texture. A song defaults to verse–chorus–verse–chorus–bridge–chorus. An essay defaults to introduction, three supporting points, conclusion. An image defaults to a centred subject at eye level. Change the texture and you get a familiar shape in new clothes. Change the shape and everything downstream must be reinvented.</p>
+  <p>Architecture is also the most reliably obeyed instruction type. Delivery notes, mood words and fine performance detail are frequently ignored or only partly honoured. Structural rules — what goes where, what appears once, what never returns — survive generation after generation.</p>
+  <p class="pull">Spend your precision where it is obeyed.</p>
+  <h4>What an architectural constraint looks like</h4>
+  <ul class="plain">
+    <li>The thing that would normally arrive first arrives last.</li>
+    <li>The element that would normally repeat appears exactly once.</li>
+    <li>Nothing is added after a certain point; only removed.</li>
+    <li>It ends mid-gesture, without resolving.</li>
+  </ul>
+</section>
+
+<section id="p2">
+  <span class="pnum">02</span>
+  <h3 class="p">Contradiction</h3>
+  <p class="rule-line">Give two instructions that pull against each other, and one rule for how they resolve.</p>
+  <p>When every descriptor points the same way — warm, intimate, acoustic, organic — the system retrieves a single coherent cluster it has seen many times. When two descriptors are incompatible, there is no cluster. It has to construct something.</p>
+  <div class="mono">familiar element A
++ incompatible element B
++ one rule for how they meet</div>
+  <p>A lullaby's volume carrying violent content. A children's melody at funeral pace. A formal legal register describing something trivial. A photograph's realism applied to an impossible object. The tension must be productive rather than arbitrary — ask which element should feel human and which mechanical, and where the audience should feel the instability.</p>
+  <p>The most useful contradictions come from the content itself. If the material already contains a tension, name it and let the form carry it. Imposed strangeness announces itself; discovered strangeness feels inevitable.</p>
+</section>
+
+<section id="p3">
+  <span class="pnum">03</span>
+  <h3 class="p">Narrow reference</h3>
+  <p class="rule-line">Name a specific situation, not a category.</p>
+  <p>Categories are too large to constrain anything. "Ambient," "noir," "corporate," "minimalist" each contain thousands of typical answers. A narrow reference points at a small neighbourhood, and the best ones specify several dimensions at once: period, place, physical circumstance, equipment, limitation, and the state of the person making it.</p>
+  <div class="ab">
+    <div class="a"><span class="t">Category</span><p>A moody indie sound.</p></div>
+    <div class="b"><span class="t">Situation</span><p>A one-microphone room recording with audible chair movement, made by musicians who are still unsure of the arrangement.</p></div>
+  </div>
+  <p>Note what the second supplies that the first cannot: a reason for the imperfections. Constraints that carry a <em>cause</em> generate consistent detail, because the system can reason from the situation to its consequences.</p>
+</section>
+
+<section id="p4">
+  <span class="pnum">04</span>
+  <h3 class="p">Negative space</h3>
+  <p class="rule-line">Name the defaults you know are coming, and forbid them.</p>
+  <p>Every system has habits — things it adds unrequested because they are statistically safe. Reverb. Rising strings. Symmetrical composition. A summarising final paragraph. A list of three. An upbeat conclusion. You learn them by generating a few times and noticing what keeps appearing.</p>
+  <p>A prohibition is often worth more than a description, because it is unambiguous. "Make it restrained" is interpretable. "No element may enter after the first third" is not.</p>
+  <p>Three cautions. Do not ban everything — excessive prohibition produces thin, lifeless output rather than disciplined output. And place negatives late, after the positive description, where they read as fences rather than as the subject. Finally, ban things, not qualities: an instrument, an object or a section can be cleanly absent, but forbidding a manner (<em>no emotion</em>, <em>never spoken</em>) names it, and naming it invites it.</p>
+</section>
+
+<section id="p5">
+  <span class="pnum">05</span>
+  <h3 class="p">Relational instruction</h3>
+  <p class="rule-line">Describe how each part differs from the one before, rather than scheduling events.</p>
+  <p>This is the least obvious principle here and among the most useful. Systems handle <em>comparison</em> far more reliably than they handle <em>timing</em>.</p>
+  <div class="ab">
+    <div class="a"><span class="t">Scheduled</span><p>Add tape flutter at 1:40. Increase reverb in the third section.</p></div>
+    <div class="b"><span class="t">Relational</span><p>Each section is hazier than the one before it, edges softening, until the last is fully blurred.</p></div>
+  </div>
+  <p>The scheduled version requires the system to track absolute position, which it does badly. The relational version gives it a direction of travel, which it follows well — and even a partial success preserves the arc, because the contrast between beginning and end gives it a target to aim at.</p>
+  <p>This generalises. <em>Each paragraph plainer than the last.</em> <em>Each frame emptier than the one before.</em> <em>Every function simpler than the one it replaces.</em> Trajectory is more robust than schedule.</p>
+</section>
+
+<section id="p6">
+  <span class="pnum">06</span>
+  <h3 class="p">Format is instruction</h3>
+  <p class="rule-line">How the input is laid out changes the output, whether or not you intend it.</p>
+  <p>Line breaks become phrase boundaries. A line alone becomes emphasis. Crowded syllables become rushed delivery. An incomplete sentence becomes a suspension. In text generation, a heading changes register; a numbered list produces enumerated thinking; an example shapes everything after it more powerfully than any adjective.</p>
+  <div class="mono">I thought I heard you say
+no
+not yet</div>
+  <p>That white space is an instruction. It was never typed as one.</p>
+  <p>The practical consequence: proofread your input for accidental instructions. A stray list will produce a list. An example chosen carelessly will be imitated in every respect, including the ones you didn't notice.</p>
+</section>
+
+<section id="p7">
+  <span class="pnum">07</span>
+  <h3 class="p">Semantic gravity</h3>
+  <p class="rule-line">Every word drags its neighbourhood in with it.</p>
+  <p>Words do not carry only their meanings. They carry the company they keep in the training data. A nylon-string guitar plus a waltz plus a ballroom produced Mediterranean romance in a song where no country was ever named — because those three terms sit close together in a region the system knows well.</p>
+  <p>Bagpipes carry Scotland. "Cathedral" carries Europe. "Startup" carries a visual style, a vocabulary and a set of assumptions. "Journey" carries a whole narrative arc. None of this is a malfunction; it is what association does.</p>
+  <p>Two forms of gravity are easy to miss. <strong>Parts add up to a whole you never named:</strong> a pedal steel guitar, a slow waltz and a baritone guitar produced a country ballad without the word "country" appearing anywhere. Describing components instead of a genre only helps if the components don't belong to that genre. <strong>Images carry timing:</strong> "a heartbeat felt through a mattress" produced sleeping-speed music, and "funeral pace" pulled a song somewhere strange. A number, such as "6/8 at about 60 beats per minute," carries no picture to interpret.</p>
+  <p>Words also carry people. "Chanted" brought a crowd into a song meant for one voice; "a small gathering of friends" put a group in the room for every verse. Before generating, ask who each word invites in.</p>
+  <h4>How to work with it</h4>
+  <ul class="plain">
+    <li>Before generating, read your own instruction and ask what each term smuggles in.</li>
+    <li>If a drift is unwanted, anchor the idiom rather than replacing the element: name <em>how</em> the thing should be done, once, and only swap the element if that fails.</li>
+    <li>If the drift is interesting, keep it. A recurring unwanted association is a free reference point you hadn't thought of.</li>
+  </ul>
+</section>
+
+<section id="p8">
+  <span class="pnum">08</span>
+  <h3 class="p">Elements persist</h3>
+  <p class="rule-line">Anything introduced tends to stay. Schedule presence by explicit rule, not by narrative.</p>
+  <p>A second voice, once added, tends to remain for the whole piece. A visual element, once present, recurs. A concept introduced in paragraph one colours paragraph nine. These systems maintain what they establish.</p>
+  <p>So instructions phrased as story — <em>after she leaves, the second voice disappears</em> — fail, because the system is not tracking a plot. Instructions phrased as binary rules — <em>the second voice appears only in the first refrain and the final two lines, and nowhere else</em> — work far better.</p>
+  <p>And when it still fails, the fallback is to remove the element entirely and let its absence carry the meaning. A song about someone gone is often better without her voice in it at all.</p>
+  <p>A newer model made the fallback the rule. On it, even a careful binary rule could not keep a group of backing voices to the choruses: mentioned anywhere, they sang everywhere. Removing them entirely kept the singer alone, and the song was more intimate for it. When the rule fails, removal is not a compromise; test it first. If the element really must come and go, control it after generation, from separated stems, rather than in the instruction.</p>
+</section>
+
+<section id="p9">
+  <span class="pnum">09</span>
+  <h3 class="p">One variable at a time</h3>
+  <p class="rule-line">Change everything and you learn nothing.</p>
+  <p>This is the single most common failure, and it looks like diligence. A result disappoints, so the whole instruction gets rewritten — new structure, new reference, new constraints. The next result differs, and it is impossible to say why. Nothing is learned, and nothing that worked can be reproduced.</p>
+  <p>The discipline is straightforward and unglamorous. Keep every instruction that worked. Change exactly one. Generate. Record what happened.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Version</th><th>Changed</th><th>Result</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td>No opening section</td><td>Strong start, weak middle</td><td>Keep</td></tr>
+        <tr><td>B</td><td>Removed reverb</td><td>More intimate</td><td>Keep</td></tr>
+        <tr><td>C</td><td>Single chorus</td><td>Ending felt abrupt</td><td>Modify</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The log is not bureaucracy. It is the only way the work becomes cumulative rather than repetitive — and it is what converts a tool you are guessing at into an instrument you know.</p>
+</section>
+
+<section id="p10">
+  <span class="pnum">10</span>
+  <h3 class="p">Read divergence before correcting it</h3>
+  <p class="rule-line">When the output differs from the instruction, check the source material before assuming the machine was wrong.</p>
+  <p>A vocal came back resigned where the instruction specified tense. That looked like a failure. It wasn't: the lyric names exhaustion as the mechanism of captivity, and rage would have implied enough energy to leave. The system had read the content more accurately than the instruction had.</p>
+  <p>This happens often enough to be worth a habit. A divergence is evidence about one of three things — a flaw in the instruction, a limit of the system, or something true in the material that you had not consciously registered. The third is the valuable case and the easiest to overwrite.</p>
+  <p class="pull">Before you correct the machine, check whether it has understood your material better than your instruction did.</p>
+</section>
+
+<section id="p11">
+  <span class="pnum">11</span>
+  <h3 class="p">Curate the outlier</h3>
+  <p class="rule-line">Constraints change probabilities. They do not produce results. Generate many; keep the one with a genuine surprise in it.</p>
+  <p>The working sequence: generate several versions, discard the polished and expected ones, find the version containing one decision you did not anticipate, preserve that decision, and rebuild around it.</p>
+  <p>The strangest result is not automatically the best. You are looking for productive unfamiliarity, not disorder. The tests:</p>
+  <ul class="plain">
+    <li>Does the unusual choice reveal something about the material?</li>
+    <li>Does it create tension that can be sustained?</li>
+    <li>Does it survive repeated exposure?</li>
+    <li>Does it feel intentional, even though it wasn't?</li>
+    <li>Or is it merely broken?</li>
+  </ul>
+  <p>One instance is worth recording. An instruction specified a voice that never rises, not even at the refrains. On one take it rose — for a single line near the end, a brief flash of anger, and then fell back into resignation. The instruction had been violated. The result was better. It was kept.</p>
+  <p>No prompt produces that. A person hears it and decides.</p>
+</section>
+<section id="p12">
+  <span class="pnum">12</span>
+  <h3 class="p">Borrow a mechanism from something you know cold</h3>
+  <p class="rule-line">Don't ask for surprise. Hand over a procedure for producing it, taken from a domain you understand in your bones.</p>
+  <p>Asking a system to be surprising produces noise, because surprise is a property of a result rather than an action. But surprise has <em>shapes</em>, and a shape can be specified — by naming a mechanism the system already understands from somewhere else.</p>
+  <div class="ab">
+    <div class="a"><span class="t">Asks for a property</span><p>Take surprising turns.</p></div>
+    <div class="b"><span class="t">Supplies a mechanism</span><p>The melodic motifs should take surprising turns like play-on-words phrases.</p></div>
+  </div>
+  <p>A pun is a well-understood move: a phrase pivots on a hinge, meaning one thing and then snapping to another. Saying <em>turn like a pun</em> transfers that procedure from language into music. The result is controlled freshness rather than randomness, because the analogy constrains the swerve to a <em>kind</em> of swerve.</p>
+  <p>The important part is where the analogy comes from. That one worked because puns are native to a writer — wordplay is a domain he knows without thinking. A magician would reach for misdirection; a comedian for timing; a carpenter for a joint that hides its own fastening. <strong>The mechanism has to be drawn from a competence you actually possess</strong>, because you need to know how it behaves, not merely what it's called. Borrowed from outside, the analogy lands vague and does nothing.</p>
+  <p>This is the clearest case of the tool amplifying what you already are. Your depth in an unrelated field becomes a source of instructions nobody else would write.</p>
+</section>
+
+<section id="p13">
+  <span class="pnum">13</span>
+  <h3 class="p">Describe the observable, not the role</h3>
+  <p class="rule-line">Say what the result should do, in terms anyone can check. Don't hand the system a character to play.</p>
+  <p>A role invites a performance. "A witness telling what he saw" sounds precise, but a witness has feelings about what he witnessed, and the system sang them. "Controlled anger, biting off the ends of lines" is a set of acting techniques, and a literal system executes techniques one by one: mannerisms with no person underneath. What worked was behaviour you can verify by listening: <em>singing on a narrow, level melody, exactly the same tone from first line to last, no emphasis.</em></p>
+  <div class="ab">
+    <div class="a"><span class="t">A role to play</span><p>Write as a sceptical expert.</p></div>
+    <div class="b"><span class="t">Behaviour to check</span><p>Every claim carries a number or a source. No hedging words. State the strongest objection before the conclusion.</p></div>
+  </div>
+  <h4>Three habits that go with it</h4>
+  <ul class="plain">
+    <li><strong>Describe the target, not the thing to avoid.</strong> A strong instruction can overshoot, and the reflex is to ban the overshoot. For a quality or a manner, that backfires: <em>never spoken or half-spoken</em> produced half-singing, and <em>no emotion</em> produced a lifeless voice. Name what you want instead, as something observable: <em>a narrow, level melody.</em> Push prose toward plain and it turns curt; ask for <em>short sentences that still connect</em>, not for <em>no long sentences</em>.</li>
+    <li><strong>Point; don't ask the system to detect.</strong> "Whenever the story returns to the real world" asks it to interpret meaning, and it guesses. "The third verse, the fourth verse and the outro" asks it to count, which it does well.</li>
+    <li><strong>Check your instructions against each other.</strong> An early, broad rule beats a later exception. Something described as never stopping will not stop dead later, however clearly the stop is requested. Read the whole instruction for conflicts before generating.</li>
+  </ul>
+  <p class="pull">A role is something to perform. A behaviour is something to check.</p>
+</section>
+<section id="dose">
+  <h3 class="p">How many constraints</h3>
+  <p>Specificity has an optimum, and it is lower than enthusiasm suggests. The counts below are a working rule of thumb from one project, not a measurement. A constraint means one decision about the work, however many clauses it takes to state: count decisions, not commas.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Count</th><th>Behaviour</th></tr></thead>
+      <tbody>
+        <tr><td>1–2</td><td>Too much freedom. You get the average.</td></tr>
+        <tr><td>3–5</td><td>The range where instructions are reliably honoured.</td></tr>
+        <tr><td>6–9</td><td>Partial compliance. Some instructions silently dropped.</td></tr>
+        <tr><td>10+</td><td>The system begins selecting which to obey. Diagnosis becomes impossible.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Past the threshold you lose more than compliance — you lose the ability to know which instruction produced which effect, which ends the possibility of learning anything. If you have more ideas than will fit, distribute them across separate generations and compare. That is not a compromise. It is the experiment.</p>
+</section>
+<section id="update">
+  <h3 class="p">When the model updates</h3>
+  <p class="rule-line">Re-test old instructions. A more literal model punishes the looseness a looser one forgave.</p>
+  <p>When a new version of a tool arrives, the first reaction is often that it is worse. Sometimes it is. But a model that follows instructions more closely will expose every vague phrase that the previous one quietly rescued with instinct. In the project behind this manual, six songs that had sounded like near misses were re-made on a newer model. Each one improved once its prompt was read again, line by line, for what it literally said. One take that had been approved months earlier turned out, to a more practised ear, to have been a near miss all along.</p>
+  <p>So treat an update as a reason to re-read, not to re-write. Run the old instruction, listen for exactly where it drifts, and fix that one place. Judge on at least two generations, because the same instruction can miss once and land the next time. And check what you actually submitted: one fix in this project was credited to a clause that had never made it into the prompt.</p>
+</section>
+<section id="altitudes">
+  <h3 class="p">Manner and architecture</h3>
+  <p>Constraints operate at two levels, and confusing them is why good prompts stop improving.</p>
+  <p>A <strong>manner constraint</strong> is global. It sets how the system moves through any material — interleave rather than blur, restrain rather than swell, plain rather than ornate. It is reusable, portable between works, and it raises the floor of everything you make.</p>
+  <p>An <strong>architectural constraint</strong> is local. It is derived from one specific work — from that piece's own content and the particular cliché that piece is about to fall into. It cannot be carried to the next work, because the next work has different gravity. It raises the ceiling of one thing.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>Manner</th><th>Architecture</th></tr></thead>
+      <tbody>
+        <tr><td>Scope</td><td>Any work</td><td>This work</td></tr>
+        <tr><td>Reusable</td><td>Yes</td><td>No, by design</td></tr>
+        <tr><td>Source</td><td>Accumulated taste</td><td>Reading this piece</td></tr>
+        <tr><td>Effect</td><td>Raises the floor</td><td>Raises the ceiling</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Originality is a local property, because surprise is measured against an expectation, and expectations are set by content. An arrangement that shrinks at the chorus is startling in a devotion song precisely because devotion songs build. A global instruction cannot aim that, because it does not know what the material leads a listener to expect. It can inject undirected freshness; it cannot break <em>this</em> cliché.</p>
+  <p>Contradiction is unavailable at the global altitude for the same reason: it needs one half of the collision to come from the content. You can say <em>be surprising</em>. You cannot say <em>a lullaby delivered with menace</em> unless you know there is a lullaby.</p>
+  <p class="pull">A manner constraint is an answer, and it is the same for every piece. An architectural constraint is a question, asked again each time.</p>
+  <p>The complete instrument stacks four layers: a manner instruction, one well-chosen pointing word, an architecture derived from the specific work, and two or three targeted prohibitions. Most people hold one or two of these and wonder why the results plateau.</p>
+</section>
+<section id="domains">
+  <h3 class="p">Prose, code and analysis</h3>
+  <p>The grammar does not belong to any one medium. What changes is the vocabulary of each constraint type.</p>
+
+  <h4>Prose</h4>
+  <p><strong>Architecture:</strong> the conclusion appears first; no paragraph exceeds three sentences; the argument is never stated, only demonstrated. <strong>Contradiction:</strong> a bureaucratic register describing something tender. <strong>Narrow reference:</strong> not "formal," but "a field report written by someone who expects to be overruled." <strong>Negatives:</strong> no summarising final paragraph, no list of three, no rhetorical questions.</p>
+
+  <p>Images get their own part: see <a href="#part3">Part Three</a>.</p>
+
+  <h4>Code</h4>
+  <p><strong>Architecture:</strong> no function longer than fifteen lines; no shared state; errors handled at the boundary only. <strong>Negatives:</strong> no new dependencies; no abstraction introduced for a single use. <strong>One variable at a time</strong> is not a suggestion here — it is how debugging works, and it is the same principle.</p>
+
+  <h4>Analysis and thinking</h4>
+  <p><strong>Architecture:</strong> state the strongest counter-argument before the conclusion. <strong>Contradiction:</strong> argue the case you find least congenial, at full strength. <strong>Negatives:</strong> no hedging, no both-sides framing, no appeal to consensus. <strong>Curate the outlier:</strong> generate several framings and keep the one that makes you uncomfortable, because that is the one carrying information you didn't already hold.</p>
+</section>
+
+<h2 class="part" id="part2">Part Two · Music in practice</h2>
+<section id="music-intro">
+  <p>AI music systems produce familiar results because familiar results are statistically safe. Ask for an “emotional cinematic pop ballad” and the system needs to invent almost nothing. It retrieves a large cluster of common choices: a short intro, verse–chorus structure, rising strings, layered vocals, a final key change, a polished reverberant mix.</p>
+  <p>The solution is not more unusual adjectives or more forceful verbs. The reliable way to move a system away from cliché is to <strong>reduce the number of acceptable outcomes</strong>.</p>
+  <p>The goal is not to control every musical detail. It is to define a small set of strong boundaries within which the system must make less predictable decisions.</p>
+</section>
+<section id="s1">
+  <h2 class="sec"><span class="num">2.1</span> The limits of verb choice</h2>
+  <p>Verbs help, especially when they describe physical or musical processes:</p>
+  <ul class="verbs">
+    <li>fracture</li><li>stagger</li><li>withhold</li><li>interrupt</li><li>suspend</li><li>smear</li><li>circle</li><li>collapse</li><li>whisper</li><li>resist</li><li>lurch</li><li>unravel</li>
+  </ul>
+  <div class="compare">
+    <div class="weak"><span class="tag">Describes an effect</span><p>Create an emotional vocal.</p></div>
+    <div class="strong-ex"><span class="tag">Describes behaviour</span><p>Let the vocal enter late, interrupt its own phrases, and withhold the final word of each couplet.</p></div>
+  </div>
+  <p>But verb choice is not the primary factor (Part One, <a href="#why">the six-verbs test</a>). A prompt can contain highly unusual verbs and still produce a conventional song if its structure, genre references and arrangement remain generic. Use verbs to describe what the music <em>does</em>. Use constraints to determine what the music is allowed to <em>become</em>.</p>
+</section>
+<section id="s2">
+  <h2 class="sec"><span class="num">2.2</span> The grammar in a song</h2>
+  <p>Four principles from Part One, with the musical examples that taught them.</p>
+  <h3 id="s2x">Specify the structure</h3>
+  <p class="applies">Principle <a href="#p1">1, architecture</a></p>
+  <p>Structure is the strongest control available, because clichés enter through familiar architecture. The default is intro → verse → chorus → verse → chorus → bridge → final chorus. Interrupt it by naming the architecture directly.</p>
+  <ul class="plain">
+    <li>No intro; the vocal begins on beat one.</li>
+    <li>The first section contains no repeated line.</li>
+    <li>The chorus appears only once.</li>
+    <li>The second verse is shorter than the first.</li>
+    <li>The bridge arrives before the second chorus.</li>
+    <li>End immediately after the first complete refrain.</li>
+    <li>Do not resolve the final chord.</li>
+    <li>Use an instrumental interruption instead of a conventional bridge.</li>
+    <li>Allow the song to end during an unfinished phrase.</li>
+  </ul>
+  <div class="compare">
+    <div class="weak"><span class="tag">Requests originality</span><p>Make the structure unconventional.</p></div>
+    <div class="strong-ex"><span class="tag">Makes familiar solutions unavailable</span><p>Begin with a bare vocal phrase on beat one. Add one instrument in each section, each section fuller than the one before, then strip everything back to percussion. Introduce the only full chorus near the end and stop on an unresolved IV chord.</p></div>
+  </div>
+  <h3 id="s3x">Introduce contradiction and tension</h3>
+  <p class="applies">Principle <a href="#p2">2, contradiction</a></p>
+  <p>Systems perform predictably when descriptors point the same way. “Warm,” “organic,” “acoustic” and “intimate” form a familiar cluster. Unusual results emerge when instructions pull against one another.</p>
+  <ul class="plain">
+    <li>Bluegrass instrumentation at drum-and-bass tempo.</li>
+    <li>A childlike melody over funeral pacing.</li>
+    <li>A dry, close vocal above a huge, distant rhythm section.</li>
+    <li>A danceable bass line under lyrics that never resolve emotionally.</li>
+    <li>Medieval modal harmony with a cheap 1980s drum machine.</li>
+    <li>A lullaby delivered with the timing of a courtroom statement.</li>
+    <li>Delicate instrumentation played with mechanically perfect repetition.</li>
+  </ul>
+  <p>The aim is not random absurdity. The elements should create productive tension. Ask: which element should feel human, and which mechanical? Should the lyrics contradict the harmony, the rhythm, or the delivery? Where should the listener feel instability?</p>
+  <p class="label">The formula</p>
+  <div class="prompt">Familiar element A
++ incompatible element B
++ one specific execution rule</div>
+  <p>For example: use a gentle folk melody with industrial percussion, but keep the vocal completely calm while the rhythm becomes increasingly aggressive.</p>
+  <h3 id="s4x">Use narrow references, not broad genres</h3>
+  <p class="applies">Principle <a href="#p3">3, narrow reference</a></p>
+  <p>Genre labels are too large to be useful. “Rock,” “ambient,” “soul” and “cinematic” each lead to thousands of predictable combinations. A narrow reference points to a smaller musical neighbourhood.</p>
+  <ul class="plain">
+    <li>The dry drum sound of a late-1970s Tokyo studio.</li>
+    <li>A one-microphone room recording with audible chair movement.</li>
+    <li>The harmonic restraint of an early demo rather than a finished album.</li>
+    <li>A regional dance rhythm played by a small acoustic ensemble.</li>
+    <li>A field recording beneath a nearly silent vocal.</li>
+    <li>The brittle synthesiser tone of low-budget television music.</li>
+    <li>A live rehearsal where the musicians are uncertain of the arrangement.</li>
+  </ul>
+  <p>A good reference identifies several dimensions at once: period, place, recording environment, instruments, performance style, production limitation. Describe a specific sonic situation, not a famous artist or a broad genre.</p>
+  <h3 id="s5x">Use negative space to remove defaults</h3>
+  <p class="applies">Principle <a href="#p4">4, negative space</a></p>
+  <p>Systems add things you never asked for. Naming them and forbidding them is often more effective than describing what you want.</p>
+  <div class="banned">
+    <ul>
+      <li>a conventional intro</li>
+      <li>atmospheric pads</li>
+      <li>large reverberation</li>
+      <li>stacked harmonies</li>
+      <li>cinematic strings</li>
+      <li>a key change</li>
+      <li>a final chorus repeated several times</li>
+      <li>a drum fill into every chorus</li>
+      <li>background vocal responses</li>
+    </ul>
+  </div>
+  <p>A strong prompt pairs a positive instruction with a prohibition: <em>use a single dry vocal over sparse percussion; no pads, no harmonies, and no reverb until the final section.</em></p>
+  <p>Do not ban everything. Excessive prohibition makes results thin or incoherent. Select the defaults that conflict most with your intended character.</p>
+  <p>Ban things, not qualities. “No harmonica” removes a harmonica. “No emotion” or “never spoken” names the very manner you want gone, and the system tends to supply it. For delivery, describe what you want instead.</p>
+</section>
+<section id="s6">
+  <h2 class="sec"><span class="num">2.3</span> Treat the lyrics as a control surface</h2>
+  <p>Lyrics are not words placed on top of a melody. Their shape influences phrasing, rhythm, melodic contour and breathing.</p>
+
+  <h3>Irregular line lengths</h3>
+  <p>Regular lines encourage regular phrases. Uneven lines encourage the vocal to shift between clipped and extended delivery.</p>
+  <div class="lyric">I carried the cup
+through the room
+where nobody had asked me to stay</div>
+
+  <h3>Unexpected stresses</h3>
+  <div class="lyric">I said the window was OPEN
+but meant the opposite</div>
+
+  <h3>Enjambment</h3>
+  <p>Let a thought run across a line or section boundary. The incomplete phrase creates a natural point of tension.</p>
+  <div class="lyric">You left the light on
+for someone who would only</div>
+
+  <h3>Line breaks as phrasing</h3>
+  <p>Many systems read line breaks as phrase boundaries. Break a sentence in an unnatural place to create a pause. Crowd syllables onto one line to rush the delivery. Use a one-word line to create space.</p>
+  <div class="lyric">I thought I heard you say
+no
+not yet</div>
+
+  <h3>Performance tags</h3>
+  <p>Some systems respond to tags in the lyric field more reliably than to general style instructions. Use them where they mark a meaningful change, not as decoration.</p>
+  <ul class="verbs">
+    <li>[whispered]</li><li>[spoken]</li><li>[a cappella]</li><li>[breath]</li><li>[unison]</li><li>[off-mic]</li><li>[instrumental break]</li><li>[half-sung]</li>
+  </ul>
+  <div class="lyric">[spoken]
+The door was open.
+[whispered]
+The room was not.
+[a cappella]
+And I went in anyway.</div>
+</section>
+<section id="s9">
+  <h2 class="sec"><span class="num">2.4</span> Generate in sections when possible</h2>
+  <p>Whole-song generation invites familiar architecture. Section-by-section generation creates a decision point at every boundary — precisely where generic arrangements appear.</p>
+  <ul class="plain">
+    <li>Generate the opening section. Keep or revise it.</li>
+    <li>Extend into the next section.</li>
+    <li>Decide whether the arrangement should expand, contract, or change direction.</li>
+    <li>Generate the ending separately.</li>
+    <li>Assemble or edit the strongest sections.</li>
+  </ul>
+  <p>Slower, and it preserves authorship over the architecture.</p>
+</section>
+<section id="s10">
+  <h2 class="sec"><span class="num">2.5</span> What prompting cannot fix</h2>
+  <p>Prompting strongly influences arrangement, instrumentation, section order, vocal phrasing, performance energy, the presence of harmonies, and rhythmic density.</p>
+  <p>Other characteristics are embedded more deeply: glossy mastering, excessive compression, synthetic vocal sheen, generic spatial effects, uniform loudness, overly polished timbres.</p>
+  <p>If the arrangement is strong but the sonic fingerprint remains obvious, treat the output as <strong>source material, not a finished recording</strong>. Export stems. Replace the vocal. Replay selected instruments. Resample through your own effects. Record room ambience. Reshape the reverb. Rebuild parts with real instruments.</p>
+  <p>Use AI for rapid sketches, unusual combinations and structural experiments; use human performance and production to create identity.</p>
+</section>
+<section id="s11">
+  <h2 class="sec"><span class="num">2.6</span> Expand the reference pool</h2>
+  <p>Specific references only help if the references themselves are varied. If every reference point comes from major commercial releases, the system stays in commercial territory.</p>
+  <ul class="plain">
+    <li>Field recordings and regional musical traditions.</li>
+    <li>Local scenes, early demos, rehearsal tapes.</li>
+    <li>Incomplete arrangements and non-Western song structures.</li>
+    <li>Amateur recordings and unusual instrument pairings.</li>
+    <li>Obsolete recording technologies.</li>
+    <li>Live performances with audible limitations.</li>
+  </ul>
+  <p>The goal is not to imitate any one source. It is to give the system access to less commonly combined characteristics.</p>
+</section>
+<section id="s13">
+  <h2 class="sec"><span class="num">2.7</span> Test whether the result is actually fresh</h2>
+  <p>Novelty is easy to misjudge. Something can feel original simply because you have not recently heard what it resembles. Play the draft for someone with deep listening experience in the style; they may recognise a familiar melodic contour, a borrowed rhythmic gesture, a standard arrangement template, a production cliché.</p>
+  <p>The question is not whether the piece has never existed in any form — that standard is impossible to prove. The useful questions are narrower:</p>
+  <ul class="plain">
+    <li>Does the combination feel personally chosen?</li>
+    <li>Does the arrangement avoid the most obvious template?</li>
+    <li>Does it contain at least one decision that could not be predicted from the genre label alone?</li>
+    <li>Does the unusual element serve the lyric, rather than advertise its own strangeness?</li>
+  </ul>
+</section>
+<section id="template">
+  <h2 class="sec"><span class="num">§</span> The prompt template</h2>
+  <div class="prompt">Create a song built around the following constraints:
+
+1. Structure
+   [Section order, entrances, repetitions, ending.]
+
+2. Main contradiction
+   [Two elements that pull against each other.]
+
+3. Narrow reference
+   [A time, place, recording environment, instrument,
+    or production limitation.]
+
+4. Vocal behaviour
+   [Phrasing, timing, register, breath, delivery, restraint.]
+
+5. Negative space
+   [Two or three defaults that must not appear.]
+
+Do not add a conventional intro, a key change, a repeated
+final chorus, or unnecessary background harmonies.</div>
+  <p class="label">Worked example</p>
+  <div class="prompt">1. Begin with the vocal on beat one. One verse, one instrumental
+   interruption, and one chorus that appears only once. End before
+   the final phrase resolves.
+
+2. Combine a childlike melodic contour with funeral pacing.
+
+3. Use the dry drum sound of a small late-1970s studio and the
+   limited room ambience of a one-microphone rehearsal recording.
+
+4. Keep the vocal almost conversational in the verse. Let it become
+   strained only on the final two lines.
+
+5. No pads, no vocal harmonies before the closing chorus, and no
+   orchestral strings.
+
+Favour tension, restraint and incomplete resolution over polish.</div>
+</section>
+
+<section id="method">
+  <h2 class="sec"><span class="num">§</span> The working method</h2>
+  <ul class="plain">
+    <li><strong>Define the architecture.</strong> Decide what the song will not do structurally.</li>
+    <li><strong>Choose one contradiction.</strong> Pair two musical ideas that create useful tension.</li>
+    <li><strong>Select one narrow reference.</strong> A specific sound, place, era, recording condition or limitation.</li>
+    <li><strong>Shape the lyrics.</strong> Line lengths, stresses, pauses and section boundaries, used deliberately.</li>
+    <li><strong>Add two or three exclusions.</strong> Remove the defaults most likely to make the result generic.</li>
+    <li><strong>Generate several versions.</strong> Treat the first output as a sample, not an answer.</li>
+    <li><strong>Change one variable at a time.</strong> Preserve what works while testing what does not (Principle <a href="#p9">9</a>).</li>
+    <li><strong>Generate sections separately.</strong> Keep control over transitions and endings.</li>
+    <li><strong>Curate the strongest outlier.</strong> Choose the version with the most meaningful surprise (Principle <a href="#p11">11</a>).</li>
+    <li><strong>Finish outside the model.</strong> Edit, re-record, resample and mix away the remaining generic qualities.</li>
+  </ul>
+</section>
+<div class="case" id="case">
+  <h2>Case study: “I love you, baby”</h2>
+  <p class="sub">Specificity of constraint, applied to a finished lyric.</p>
+
+  <p>This isn’t a love song. It’s a portrait of a man coming apart, written in a love song’s vocabulary. She’s with someone else. He’s the affair. The evidence is in the morning: bloodshot eyes in a mirror he didn’t want to face, whisky in the good memory, and that quietly chilling line — <em>every thought of me without you leads to somewhere I don’t want to go.</em></p>
+  <p>The lyric says <em>I love you, baby.</em> The details say <em>I can’t survive without you</em>, which is a different thing, and the writing knows it. The arrangement’s job is to side with the details over the claims.</p>
+
+  <h3>The structure override</h3>
+  <p>The title hook is the most clichéd phrase in all of popular music — so it gets delivered as the smallest moment in the song. Every template screams that <em>I love you, baby</em> is where the chorus lifts, the drums enter, the voice opens. Instead the band thins, and he sings it quiet, worn, almost ashamed. In this story it isn’t a declaration; it’s a man pleading at three in the morning. The verses carry more sound than the chorus. Full inversion, earned by content.</p>
+
+  <h3>The setting</h3>
+  <p>Last call. A worn upright piano, brushed kit, low tremolo guitar — the sound of the bar where they used to laugh over whisky, after everyone has gone.</p>
+
+  <h3>The lyric, reformatted for phrasing</h3>
+  <div class="lyric">[Verse 2 — lower, rougher]
+I got out of bed this morning
+didn't want to face the glass
+Saw those tired bloodshot eyes
+and memories came flooding back
+I thought about sitting with you
+laughing softly over whisky
+
+God
+the way you looked at me
+told me what you wouldn't say
+out loud</div>
+  <div class="lyric">[Verse 4 — barest]
+And maybe I'm a fool
+for holding on
+Maybe I should cut my losses
+
+But every thought of me without you
+leads to somewhere
+I don't want to go</div>
+  <p>“God” stands alone. “out loud” is broken off — what she wouldn’t say, hanging in the space where she didn’t say it. “here” is isolated at the end of verse three, because he’s insisting on a presence that isn’t present. The dark line is split across two lines inside white space, and the music hollows out beneath it: acknowledged, not decorated. Both choruses are tagged progressively smaller, the last quietest of all, so the song ends at its point of maximum need and minimum voice.</p>
+
+  <h3>The style prompt</h3>
+  <div class="prompt">Slow 12/8 ballad on a worn upright piano, slightly out of tune,
+with brushed drums and a low tremolo electric guitar far in the
+background, nothing else — recorded like an empty bar at closing
+time, chairs up, one light on. Male voice, hoarse and worn, close
+to the mic, singing like a man who's been up all night, phrases
+sagging slightly behind the beat. The verses carry the fuller
+sound; at every chorus the arrangement thins instead of lifting —
+drums drop to almost nothing and the title line is sung small,
+quiet, almost ashamed, a plea rather than a declaration. On the
+line about where his thoughts lead, the guitar and drums fall
+silent, leaving only a single low piano note under the voice,
+then the song resumes. The final chorus is the quietest music in
+the song. After the last line the piano keeps playing alone for a
+few bars, unresolved, like he's still sitting there, then stops.
+
+No guitar solo, no horns, no gospel backing vocals, no big
+blues-rock drums.</div>
+
+  <h3>How the slots were filled</h3>
+  <ul class="plain">
+    <li><strong>Structure override:</strong> the hook as the smallest moment — the anti-chorus — with choruses that shrink in sequence.</li>
+    <li><strong>Contradiction:</strong> the most clichéd title in music delivered as the least triumphant sound in the set. Devotion’s vocabulary, dependency’s voice.</li>
+    <li><strong>Narrow reference:</strong> the bar at closing, chairs up, one light — the whisky memory’s location after the memory is over.</li>
+    <li><strong>Performance verbs:</strong> sags, thins, hollows, pleads.</li>
+    <li><strong>Negative space:</strong> four targeted prohibitions at the end, plus an explicit ending — the piano outlasting him.</li>
+  </ul>
+
+  <h3>Geography check</h3>
+  <p>Slow 12/8 plus a hoarse voice plus a bar pulls hard toward blues-rock and toward big torch-song belting. Both are anchored against in the negatives and in the “small, ashamed” chorus instruction. If a take comes back belted anyway, the one-variable fix is to strengthen the vocal line to <em>never rises above conversational volume anywhere in the song.</em></p>
+  <p>The anti-chorus is the bet. Keep whichever take sings <em>I love you baby</em> smallest; that delivery is the entire reading.</p>
+
+  <h3>What the take taught</h3>
+  <p>The anti-chorus landed where it mattered most. The final chorus is the quietest section of the song, with the drums almost gone, and the dark line flows straight into it: <em>somewhere I don’t want to go</em> and the smallest <em>I love you baby</em> sit in one continuous hollow. The first chorus held only partly. It opened on a lift before thinning, so the shrinking happened across the song rather than at every chorus.</p>
+  <p>One deviation stayed. <em>Say you’ll come back tonight</em> rises in the final chorus. The prompt didn’t ask for it, but desperation breaking through is true to him.</p>
+  <p>The ending did not obey. After the last line, the model reached for the one thing this song couldn’t have: a closing swell, the loudest moment in the whole generation. The piano outro I’d asked for came after it and couldn’t be saved without it. So I cut on his last word, <em>without</em>, and faded. Exhaustion rather than lingering, which suits him better.</p>
+  <p><strong>Endings are where the model most wants its climax.</strong> Generate them separately when you can, and be ready to finish with an edit.</p>
+</div>
+
+<div class="case" id="case2">
+  <h2>Case study: “Desperate Skin”</h2>
+  <p class="sub">One absolute rule, held for an entire song.</p>
+
+  <p>The lyric hands over its reading in the first image: the narrator is feigning sleep. Hands trembling beneath the pillow while the other stumbles in — awake, silent, unseen. So the move is total. <strong>The whole song is sung as if not to wake someone.</strong> Barely above a whisper, close enough to hear breath, tense and constricted — a voice that cannot rise, because rising would be discovery.</p>
+  <p>This is quiet as danger rather than quiet as tenderness. The contradiction is a lullaby’s volume carrying the ugliest content in the set.</p>
+
+  <h3>The room outranks the person</h3>
+  <p>The lyric scores its own soundtrack — screen door, screaming neon clock, bleeding light. The room is loud; the person is silent. So the arrangement inverts the usual hierarchy: a constant electric hum sits slightly forward, oppressive, while the instruments are skeletal. A low guitar figure. A distant piano note or two. <strong>The room as the loudest presence, the human barely audible inside it.</strong></p>
+
+  <h3>The lyric, formatted</h3>
+  <div class="lyric">[Bridge — flattest, near-spoken]
+We died long before tonight
+back when the drinking started
+I know love turns into loneliness
+one betrayal
+at a time
+
+I already know the ending
+I just can't leave yet</div>
+  <p>“with you” is broken off both refrains — the trap’s last ingredient, landing separately, almost inaudible. “one betrayal / at a time” is staircased, erosion at erosion’s pace. The bridge’s two facts are isolated and stated flat, with no melody asked to carry what the voice won’t feel aloud.</p>
+
+  <h3>The style prompt</h3>
+  <div class="prompt">Slow airless minimal piece built on a constant low electric hum
+like a neon sign buzzing through a wall — the hum never stops and
+sits slightly too loud, oppressive — with a skeletal low guitar
+figure and a distant piano note or two, nothing else, no drums
+anywhere. Recorded suffocatingly close, like 3 a.m. in a small
+bedroom trying not to be heard. Voice barely above a whisper the
+entire song, tense and constricted, every word close to the mic,
+sung like someone feigning sleep who cannot risk being louder —
+the voice never rises, not even at the refrains, which are only
+slightly more voiced than the verses. The bridge is flattest of
+all, nearly spoken. In the outro the guitar and piano fall away,
+leaving only the hum and the whisper, and after the last line the
+hum continues alone, steady, for several seconds, then stops.
+
+No drums, no swells, no reverb, no full singing voice anywhere.</div>
+
+  <h3>Why this is the cleanest constraint in the set</h3>
+  <p>One absolute rule does all the work: <em>the voice never rises.</em> It is a ceiling rather than an arc — and unusually, it is <strong>verifiable by listening</strong>. Either the voice rose or it didn’t. Most craft decisions require interpretation to assess. This one does not.</p>
+  <p>The known risk was the model’s instinct to lift at the refrain, which it would face twice. The guard was comparative rather than absolute — <em>only slightly more voiced than the verses</em> — because a flat prohibition with no relative anchor tends to produce a dead delivery rather than a restrained one. The selection rule followed from that: keep whichever take stays smallest at the refrains, because a single full-voiced line breaks the feigned sleep and the spell with it.</p>
+  <p><strong>Geography check:</strong> whisper plus drone pulls toward dark ambient and whisper-folk — both wanted here. The fence is against beautiful gloom, the reverb-washed prettiness of slowcore, held by “no reverb” and “airless.” This room should not sound lovely. If the hum comes back warm rather than oppressive, the one-variable fix is “harsh fluorescent buzz” in place of “neon hum.”</p>
+
+  <h3>What the take taught</h3>
+  <p>The finished vocal read as <em>resignation</em> rather than the tension the prompt described. That looked at first like a drift from the design. It wasn’t. The refrain names exhaustion as the mechanism of captivity — <em>my body’s weak, my spirit worn, that’s what keeps me trapped here.</em> Rage would have been the cliché rendering, and rage implies energy, and energy implies the door is usable. A voice too tired to be angry is the truthful one.</p>
+  <p>Fear is why the voice stays small tonight. Exhaustion is why it has stayed small for years. The two readings were not competing; they were the same night at different depths. <strong>When a take diverges from the prompt, check the lyric before assuming the model was wrong.</strong></p>
+  <p>The ceiling held everywhere but once. On <em>Still wearing this desperate skin</em>, near the very end, the voice rises slightly, a brief flash of anger or frustration, and then resignation returns for the last three lines. The prompt forbade exactly this, and I kept it. Because the rule had held for the entire song, the one breach could not read as a mistake. It reads as the only moment the narrator almost wakes up.</p>
+  <p>The hum taught the opposite lesson. I had asked for it slightly too loud, oppressive. The take that worked keeps it barely discernible. Pushed forward, the oppression became a distraction: the listener notices the sound effect instead of the person trapped inside it. The room should press on the voice, not compete with it.</p>
+  <p><strong>Make the rule strong enough that a single deviation becomes meaningful.</strong> An absolute constraint can be a song’s emotional architecture, and a small violation, placed once, can say more than perfect compliance.</p>
+</div>
+
+<div class="case" id="v6">
+  <h2>What v6 changed</h2>
+  <p class="sub">Six near misses, re-made on a new model. Added October 2026, updated November 2026, from work with Claude.</p>
+
+  <p>When Suno v6 arrived, the verdict online was immediate: it’s worse. My first test agreed. The prompt for “Clothed in Fire,” which had given me a take I’d called a bullseye on v5.5, came back underwhelming.</p>
+  <p>Then I went back to the v5.5 take and heard what I had missed months earlier: the voice was performing, not reporting. Fully sung where it should have been level, the choruses rising where they should have stayed flat. The bullseye had been a near miss. v6 wasn’t ignoring the prompt. It was following it more literally, and the prompt was loose.</p>
+  <p><strong>A model that follows instructions more closely rewards the people who know exactly what to ask for, and punishes the ones who relied on its instincts.</strong> Both can be true at once: better for directed work, worse for undirected work.</p>
+
+  <h3>The rules v6 taught</h3>
+  <ul class="plain">
+    <li><strong>1. Describe what is heard, not who is singing.</strong> “A witness telling what he saw” was acted. “Controlled anger, biting off the ends of lines” produced mannerisms with no person behind them. “Singing on a narrow, level melody, reporting rather than performing, no emphasis” produced the song.</li>
+    <li><strong>2. Ask for the delivery you want; don’t name the one you fear.</strong> “Completely flat, no emotion” came back lifeless and cold. Adding “fully sung, never spoken or half-spoken” came back half-sung. Bans work on instruments (“no drum kit” held every time), but a way of singing, named even to forbid it, tends to appear. Describe the target instead: “singing on a narrow, level melody.” Where a limit is needed, lead with the positive: “half-sung on a simple melody, still pitched.”</li>
+    <li><strong>3. Point at sections; don’t ask the model to find them.</strong> “Whenever the lyric returns to the real world” made it guess, and it guessed wrong. “The third verse, the fourth verse and the outro” left nothing to guess.</li>
+    <li><strong>4. Check your rules against each other.</strong> The earlier, broader rule wins. A groove that “never stops” will not stop dead later. A voice “fully sung” throughout will not half-speak one verse.</li>
+    <li><strong>5. Words cast performers.</strong> “Chanted” brought a crowd. “A small gathering of friends” put people in the room for the whole song. And parts still add up to a genre: pedal steel plus a slow 6/8 waltz is country, whatever you call it.</li>
+    <li><strong>6. Images carry tempo.</strong> “Funeral pace” and “a waltz with the joy taken out” pulled the takes somewhere strange. “6/8 at about 60 beats per minute” did not.</li>
+    <li><strong>7. Backing voices go everywhere or nowhere.</strong> Placement rules that held on v5.5 did not hold for group voices on v6: mention a group anywhere and it sings everywhere. Leave the voices out, or control them afterwards with stems.</li>
+    <li><strong>8. Remove the failing device before adding control.</strong> Two songs were rescued by taking away the feature that kept failing, a chamber-instrument switch and a choir, and hearing that the song had never needed it.</li>
+    <li><strong>9. Judge a prompt on two takes, and check what you submitted.</strong> The same prompt gave one miss and one bullseye. And once I credited a new clause with fixing a song, when the clause had never made it into the prompt: I was hearing other takes of the old one.</li>
+    <li><strong>10. Feelings aren’t a sound.</strong> My first prompt for “Never Be One Again” named the right feelings: “slow burn, dignity over rage, exhausted heartbreak, someone trying not to break while singing.” It named no sound, so the model chose the most familiar sound of heartbreak, piano and voice, and used the piano to act out each feeling. Feelings tell the model what to express. Sounds tell it what to play. Write both.</li>
+    <li><strong>11. When the words and the prompt disagree, the words win.</strong> Eight takes refused to sing the last lines of a verse “quieter, closer.” They were the most hurtful lines in the song, and sung quieter they would not have been true. Once the tag was removed, the verse settled. If an instruction keeps failing in one place, read the words there: the model may be right.</li>
+    <li><strong>12. Know when to stop generating and edit.</strong> “One final bass note” never came back as one note in eight takes; models don’t count. I removed the request and cropped the ending by hand: last word, one bass note, a short fade. A crop is part of the work, not a failure of the prompt.</li>
+    <li><strong>13. Constrain only what protects the song’s truth, and cut the rest.</strong> The prompt for “When the Time Is Right” grew by patching until it directed every moment: where the piano spoke, how many lines were spoken, how the ending stopped. Eight takes moved me and none obeyed, and where they disobeyed, the song was right: the accounting verse was spoken, and the piano played on after the last line to leave room for reflection. Cut from 977 characters to 569, keeping only the sound, the voice and the bans, the prompt gave two strong takes in a row. The better one did two things no instruction asked for: the voice rose on only two lines of the quietest section, and the last line was half-sung in silence. Test every clause: if the model ignored it, would the song become less true? If not, cut it. A prompt that directs every moment leaves the song no room to surprise you.</li>
+    <li><strong>14. Shape the song with comparisons.</strong> Describe each section against the one before it, not on its own. For “Animal”: “each section plays slightly looser and hotter than the one before,” the bridge stripped bare, “the final chorus is the one full release.” One kind of instruction carried the whole arc.</li>
+    <li><strong>15. Fence each restraint to the part it belongs to.</strong> Absolutes travel. In “Beautiful Soul,” “he never opens up into full emotional singing anywhere” held down the one line that needed to rise, and “no build” fought a cello I had asked to swell. In “The Sun of Gods and Man,” a drone “that never stops” could not stop at the end; it became a drone “under the whole song.” Say where a restraint applies, or it applies everywhere.</li>
+    <li><strong>16. Every word does a job. Make sure it’s the one you meant.</strong> “Narration” brought a speaking voice. “Unaccompanied” (to a musician, no instruments) was read as “no other voices.” “Ends on a high note” may be taken literally. When a take does something strange, look for the word that asked for it.</li>
+    <li><strong>17. Tell the voice what to do on the lines that matter.</strong> “Every quoted line dips lower, like remembering how the words sounded” gave “The Sun of Gods and Man” its three remembered voices, each sung noticeably lower. The mother’s line was asked to go lowest of all and dipped about as far as the others: a model follows the direction of an instruction more readily than its degree.</li>
+    <li><strong>18. Every “or” hands the decision to the model.</strong> “Brushed drums or none at all” and “cello or ambient steel guitar” let the model choose, and it chose a mid-tempo country song with a steady beat. If you know what you want, choose it yourself.</li>
+    <li><strong>19. Give the unspoken feeling to one instrument.</strong> When a singer holds back, name the instrument that carries what he won’t say, and describe how it plays: “long, flowing counter-melodies around and between his lines with a full, singing tone, swelling where his voice stays level.” The voice stayed level; the cello said the rest.</li>
+    <li><strong>20. A conventional description gets the most famous sound.</strong> A second prompt for “Living a Lie,” written from the same line about the song’s meaning but in general terms (sparse, hushed, late-night), came back sounding like a famous singer. The prompt built from the lyric’s own world (a drum machine that never varies, two instruments that never meet) did not. The palette belongs to the lyric, not to the genre.</li>
+    <li><strong>21. Endings need their own section, or your hand.</strong> Models run on. Give the ending its own tag on the sheet, with nothing after it but [end]; crop by hand when the take overruns; or set the song’s duration so the ending has to fall inside it. A duration of three minutes gave “Living a Lie” its whispered last lines and then silence.</li>
+    <li><strong>22. Hold back the one thing the song is waiting for.</strong> For “If You Could Feel,” the harmony stays suspended for the whole song and resolves only on the last two lines, where the voice steadies. v6 held the suspense and resolved exactly where asked. A model will wait if you tell it what it is waiting for.</li>
+    <li><strong>23. Regenerate, don’t rewrite.</strong> The first take after a fix to “The Sun of Gods and Man” was flawless until the model fumbled a word. That was the model’s slip, not the prompt’s. Generate again before changing words that worked.</li>
+  </ul>
+
+  <h3>A setting worth knowing</h3>
+  <p>In Suno, the magic wand beside the style box is not an on/off switch. It suggests styles when you click it, and the suggestions only enter your prompt if you add them. (It turns blue when My Taste is on, because it then draws its suggestions from your taste profile.) Personalize, which applies My Taste to the generation itself, needs Variety turned on; with Variety off, it stays off. Write your settings down with every prompt, so a result you like can be repeated.</p>
+
+  <h3>The six</h3>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Song</th><th>The near miss</th><th>What fixed it</th></tr></thead>
+      <tbody>
+        <tr><td>Clothed in Fire</td><td>Performed instead of reported; then, hardened to “completely flat, no emotion,” nearly spoken and lifeless</td><td>Every word for speech and every “no emotion” removed; the voice described as it should sound: “singing on a narrow, level melody, reporting rather than performing.” A ban on speaking, tried first, made it worse.</td></tr>
+        <tr><td>Crash and Burn</td><td>Voices arrived early; the music would not stop</td><td>The early voices were right (“we’re in this together”), so they became a rule. The ending was cropped.</td></tr>
+        <tr><td>My Darling, Darling</td><td>Chamber instruments bled into the real world; the dream verse came out spoken</td><td>Sections named by position, one guitar under everything, the voice fenced both ways. The arrangement thinned by itself.</td></tr>
+        <tr><td>Indigo Soul</td><td>Group voices in every verse</td><td>The group removed. The take kept has one faint voice joining on a few lines, as if to say, you’re not the only one.</td></tr>
+        <tr><td>Never Be One Again</td><td>Shouting on v5.5; soulless on v6</td><td>Prompted the grief under the anger: “hurt more than angry, the anger in the words, never in the volume,” one feeling per section</td></tr>
+        <tr><td>When the Time Is Right</td><td>A bad country song</td><td>Pedal steel and the funeral-waltz image cut; tempo given as a number; the voice described as a state, not a technique. Later, most of the arrangement instructions were cut too, and the song got better (rule 13).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Rules 10 to 21 came from the episodes of the <a href="https://youtube.com/@amonrosewords">Method series</a>, where each song is shown through a beginner prompt and a precise one, on the same model. Two habits run through all of them: when a take is truer than the prompt, keep it; and when the model gets something right that you didn’t ask for, write it into the prompt so it happens again.</p>
+
+  <h3>What it means</h3>
+  <p>The method did not change. Read the lyric for its truth, constrain the model toward it, judge what comes back. What changed is how literally the model reads. On a looser model, a loose phrase was rescued by instinct. On a stricter one, every word is an instruction, including the words you never meant as instructions.</p>
+  <p>The fault the complaints blame on the model is often in the prompt. Not always: some ceilings are real, and endings still need scissors. But an ugly first render is the beginning of the diagnosis, not the verdict.</p>
+</div>
+
+<h2 class="part" id="part3">Part Three · Images</h2>
+
+<section id="img-intro">
+  <p class="partnote">The grammar was learned on songs. This part tests whether it holds for pictures, on the same terms: the same subject, prompts that differ only in how much they decide, two takes each, on two different generators.</p>
+</section>
+
+<section id="i1">
+  <h2 class="sec"><span class="num">3.1</span> Freedom, detail, and decisions</h2>
+  <p>The subject was a picture-book moment: a young girl who has lost money, crying in a park. Three prompts, each run twice on Suno’s image model and twice on ChatGPT, in fresh chats with nothing attached.</p>
+  <div class="compare">
+    <div class="weak"><span class="tag">A · Maximum freedom</span><p>A girl crying in a park.</p></div>
+    <div class="weak"><span class="tag">B · The typical “detailed” prompt</span><p>A beautiful, emotional children’s book illustration of a sad little girl in a red dress crying in a lovely sunny park, highly detailed, vibrant colors, heartwarming, storybook style, masterpiece.</p></div>
+    <div class="strong-ex"><span class="tag">C · Boxed in</span><p>Children’s book illustration in flat gouache on rough watercolour paper, visible brush strokes, a limited palette of red, ochre, olive green and cream, simple dark ink outlines. A skinny girl of about seven, seen from slightly above, stands alone at the left edge of the page on a plain dirt path; her long dark braid hangs forward, and she wipes her eyes with the back of one hand while the other pulls an empty dress pocket inside out. Her face is drawn simply: small dot eyes squeezed shut, a narrow wobbly mouth, round cheeks with no shine. A wide empty lawn fills the rest of the page, with one bare wooden bench far away and a low grey sky. Quiet, lonely, still.</p></div>
+  </div>
+  <h3>What came back</h3>
+  <ul class="plain">
+    <li><strong>A, on both generators:</strong> a photograph, not an illustration, of a young woman rather than a girl, on a park bench in autumn, with fallen leaves and grey light. Two different models, given no direction, reached for the same stock image of sadness.</li>
+    <li><strong>B:</strong> each model’s house style, and each model’s two takes nearly identical. Both added things nobody asked for. Both reached for a comfort object (a stuffed bunny, a bear, a puppy), because “sad child” plus “heartwarming” points there. One added a gazebo, a duck pond, an arched bridge, bows and frills.</li>
+    <li><strong>C:</strong> both models followed nearly every decision: the texture, the palette, the camera, the girl at the left edge, the empty pocket, the distant bench. Each model’s two takes looked like two pages of the same book, and the two models’ results looked like each other. The picture came from the prompt, not from the model.</li>
+  </ul>
+  <p>What C left open, the models filled: both added a collar and long sleeves, and drew the camera more side-on than “slightly above.” A specific prompt still has gaps, and the gaps get the default.</p>
+  <p class="pull">A detailed prompt isn’t a specific one. B is the longest-sounding and the most generic: all qualities, no decisions.</p>
+</section>
+
+<section id="i2">
+  <h2 class="sec"><span class="num">3.2</span> Constrain the style, not only the content</h2>
+  <p>This is where pictures differ from songs. Image models have a house style, glossy, softly lit, slightly three-dimensional, and adjectives of quality (“beautiful,” “highly detailed,” “masterpiece”) pull straight into it. Content decisions alone don’t escape it. Naming the medium does: the paint, the paper, the line, a limited palette, how a face is drawn.</p>
+  <p>Faces need the most care. “Cute girl, freckles” lands on the average storybook face. Concrete drawing rules move it: dot eyes, a single line for the mouth, round cheeks with no shine.</p>
+  <p>Banning a default works no better here than in music (Principle 4). Asking for a park with no gazebo can bring one in. Describe what is there instead: <em>a winding path between lawns, one big oak, a bench, open sky.</em></p>
+</section>
+
+<section id="i3">
+  <h2 class="sec"><span class="num">3.3</span> Say where things are, and how big</h2>
+  <p>Illustrating a full picture book exposed the instructions that pictures need and songs don’t.</p>
+  <ul class="plain">
+    <li><strong>Direction is ambiguous until it’s anchored.</strong> “He strides along the path to the right” sent a boy across the path toward the grass. What worked described the path first and then put him on it: <em>the path runs straight across the picture from the left edge to the right edge; he walks on it, both feet on it, heading toward the right edge.</em></li>
+    <li><strong>Give sizes a measuring stick.</strong> Passers-by came back tiny until the prompt said they stood on the same sidewalk as the girl, at the same distance, so the adults stood about one and a half times her height. A distant face needs the same: <em>about a third of his height on the page, large enough that her open mouth is visible.</em></li>
+    <li><strong>Split directions explicitly.</strong> “Shoppers walk past her” sent them all one way. “Three walk to the left and three to the right, passing each other” did not.</li>
+    <li><strong>Name the format first.</strong> “Portrait page” was ignored more than once. Opening with <em>vertical 2:3 portrait format, taller than wide</em> was not.</li>
+    <li><strong>Anything left unasked comes back empty or typical.</strong> A street with no passers-by named came back deserted. A park whose season wasn’t fixed drifted toward autumn, because autumn is the stock setting for sadness.</li>
+  </ul>
+</section>
+
+<section id="i4">
+  <h2 class="sec"><span class="num">3.4</span> What constraint can’t hold: a world across many pictures</h2>
+  <p>Constraints control what a single image looks like far better than they control sameness across images. A song is one generation: the voice and the instruments stay consistent inside one take. A picture book is twenty-five separate generations, and each one redraws the world.</p>
+  <p>Over a full book, the characters held up better than the world: the same faces, hair and clothes, once fixed by character sheets attached to every request, though small details such as freckles still came and went. The world did worse. Objects on a market counter multiplied. A paper bag’s print changed. A dress’s pockets changed shape. The oak moved sides, the path rerouted, the sky changed colour from page to page.</p>
+  <p>Three habits narrowed it:</p>
+  <ul class="plain">
+    <li><strong>Remove the detail that keeps drifting.</strong> Plain shorts instead of patterned ones. A closed paper bag instead of peanuts showing at the top. The same move as removing a failing instrument from a song (Part Two, What v6 changed, rule 8): if a detail can’t be held, take it out.</li>
+    <li><strong>Write the fixed descriptions once and paste them word for word</strong> into every prompt: the style block, each character, the props. Attach the first good picture of a place as the set for every later picture of it.</li>
+    <li><strong>Fix with the edit tool, not by regenerating.</strong> When a picture is right except for one thing, brush over that thing and describe the change. Regenerating the whole scene redraws everything you had right.</li>
+  </ul>
+  <p>Even so, a printed book needed a human illustrator. The generated pictures became something else that was still valuable: a dummy showing the staging and emotional beat of every page, with the text in place, for an illustrator to work from.</p>
+  <p class="pull">Constraint makes one picture specific. Only a person holds a world steady across a book.</p>
+</section>
+
+<h2 class="part">Finally</h2>
+
+<section id="judgement">
+  <h3 class="p">The part that doesn't transfer</h3>
+  <p>Everything in this manual can be taught, and most of it can be learned in an afternoon. None of it is the scarce thing.</p>
+  <p>The scarce thing is knowing, before you generate, which single moment will decide whether the work is any good — and then recognising it when it arrives in a form you did not plan. That is not a technique. It comes from caring about the material for long enough to know what it needs.</p>
+  <p>A generative system is fluent and without taste. It has no stake in the outcome, no memory of what moved you, no view about whether a line should land small. Its fluency is genuinely extraordinary, and it is not judgement, and the difference between them is the whole of the work.</p>
+  <p>Which is why the method can be given away without losing anything. The prompts were never the valuable part.</p>
+</section>
+
+<div class="closing">
+  <p class="lines">
+    <span>Hold the vision.</span>
+    <span>Supply the specific.</span>
+    <span>Refuse the average.</span>
+    <span>Judge relentlessly.</span>
+    <span>Keep developing the human. The human is the ceiling.</span>
+  </p>
+  <p>Constraints remove options, and removing options is the most reliable way to keep a probability-driven system away from its comfort zone. The objective is not to make a machine strange. It is to make the obvious answer unavailable, and then to recognise the unusual answer that still works.</p>
+  <p>There is a word for the arrangement this describes, and it is more precise than collaboration or partnership. <strong>Mutualism</strong> — two parties of different kinds, each supplying what the other structurally lacks, producing what neither reaches alone. The machine brings fluency without judgement, range without stake. The person brings vision, taste built over a lifetime, and the capacity to care how it turns out. Remove the human half and there is no mutualism, only a system averaging in the dark.</p>
+  <p>This is not a music skill, or a writing skill, or a technical one. It is the general skill of staying the author while the tools get loud — and when the next capable thing arrives, the method is the same. Constrain it. Contradict it. Generate ten. Keep the strangest. Never mistake the tool's fluency for your own judgement.</p>
+</div>
+
+<footer>
+  <p>A. Monrose, with Claude. Our manual: written together, from the songs and pictures we made this way. First published November 21, 2026.</p>
+  <p>The songs this method produced, in method videos (Thursdays from November 19, 2026) and in <em>Made of Light</em> music videos, where the people in each song are drawn as figures of light, in code, by Claude under my direction: <a href="https://youtube.com/@amonrosewords">youtube.com/@amonrosewords</a></p>
+  <p>How it’s all made, and everything else: <a href="https://claude.ai/artifact/EFSmzCARp5vCo2deHnYRCg">A. Monrose</a></p>
+  <p>Free to read, quote and share. If it’s useful, say where you got it.</p>
+</footer>
+
+</div>
+</body>
+</html>
